@@ -1,0 +1,540 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+  /* Empêche le défilement de la page entière */
+  height: 100vh;
+  /* Assure que le body prend toute la hauteur de la fenêtre */
+}
+
+/* Container */
+.container {
+  height: 100%;
+  /* Prend toute la hauteur du body */
+  display: flex;
+  flex-direction: column;
+  /* Organise header et scroll-container verticalement */
+  background-color: #0551C1;
+}
+
+/* Header - Mobile First */
+.header {
+  position: relative;
+  z-index: 10;
+  text-align: left;
+  flex-shrink: 0;
+  padding: 5rem 1rem 3rem;
+  /* ↑ plus d'espace en haut et en bas */
+  height: 360px;
+  /* ↑ plus de hauteur */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* centre verticalement le texte */
+  align-items: center;
+}
+
+#headerText {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  /* Aligné à gauche avec un petit décalage */
+  transform: translateY(-50%);
+  text-align: left;
+  z-index: 2;
+  max-width: 100%;
+  /* Limite la largeur du texte */
+  word-wrap: break-word;
+  /* Coupe proprement si trop long */
+  pointer-events: none;
+}
+
+.header-title,
+.header-subtitle {
+  font-size: 2.125rem;
+  font-weight: bold;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+
+
+
+.background-date-split {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.background-date-left,
+.background-date-right {
+  position: absolute;
+  font-size: 14rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.364);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.background-date-left {
+  top: 0;
+  left: 1rem;
+}
+
+.background-date-right {
+  bottom: 0;
+  right: 1rem;
+}
+
+
+/* Scroll container (maintenant un conteneur de mise en page) */
+.scroll-container {
+  flex-grow: 1;
+  /* Prend l'espace vertical restant */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Cache tout contenu qui déborderait (ne devrait pas arriver) */
+}
+
+/* Cards wrapper (maintenant le conteneur d'interaction principal) */
+.cards-wrapper {
+  position: relative;
+  /* Plus 'sticky' */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.cards-container {
+  position: relative;
+  width: 100%;
+  max-width: 20rem;
+  height: 24rem;
+  /* Hauteur fixe pour le conteneur des cartes */
+  /* Cet élément sera la cible pour les événements de molette et de balayage */
+  touch-action: none;
+  /* Peut aider à prévenir le défilement par défaut sur les appareils tactiles */
+}
+
+/* Card styles */
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    z-index 0s linear 0.3s;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card-header {
+  margin-bottom: 0.75rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.card-subtitle {
+  font-size: 0.75rem;
+  color: #0551C1;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: calc(0.875rem * 1.5 * 3);
+}
+
+.card-image-container {
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.card-eye-button {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #2563eb;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card-eye-button:hover {
+  background: #1d4ed8;
+}
+
+.card-eye-button:active {
+  transform: scale(0.95);
+}
+
+.card-eye-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: white;
+}
+
+/* Progress indicator */
+.progress-indicator {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 20;
+}
+
+.progress-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s;
+}
+
+.progress-dot.active {
+  background: white;
+}
+
+/* Scroll hint (caché car plus de défilement de page) */
+.scroll-hint {
+  display: none;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+}
+
+.modal.active {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active .modal-backdrop {
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  width: 100%;
+  height: 90vh;
+  border-radius: 1.5rem 1.5rem 0 0;
+  overflow-y: auto;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.modal.active .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-header-mobile {
+  position: sticky;
+  top: 0;
+  background: white;
+  border-bottom: 1px solid #f3f4f6;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.modal-title-mobile {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+.modal-close-mobile {
+  width: 2rem;
+  height: 2rem;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.modal-close-mobile:active {
+  transform: scale(0.95);
+}
+
+.modal-close-desktop {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.2s;
+}
+
+.modal-close-desktop:hover {
+  background: #e5e7eb;
+}
+
+.modal-body {
+  padding: 1rem 1rem 2rem;
+}
+
+.modal-header-desktop {
+  display: none;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title-desktop {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.modal-subtitle-desktop {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.modal-subtitle-mobile {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.modal-image {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.modal-description {
+  font-size: 1rem;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.modal-footer {
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.modal-hint {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.desktop-hint {
+  display: none;
+}
+
+.modal-safe-area {
+  height: 2rem;
+}
+
+@media (min-width: 640px) {
+  .header {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .header-number {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+  }
+
+  .header-title,
+  .header-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cards-container {
+    max-width: 24rem;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .card-header {
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .card-description {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    height: calc(1rem * 1.5 * 3);
+  }
+
+  .card-image {
+    height: 12rem;
+  }
+
+  .card-eye-button {
+    width: 3rem;
+    height: 3rem;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .card-eye-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .progress-indicator {
+    bottom: 2rem;
+  }
+
+  .modal.active {
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: 42rem;
+    height: auto;
+    max-height: 90vh;
+    border-radius: 1rem;
+    transform: scale(0.8);
+  }
+
+  .modal.active .modal-content {
+    transform: scale(1);
+  }
+
+  .modal-header-mobile {
+    display: none;
+  }
+
+  .modal-close-desktop {
+    display: flex;
+  }
+
+  .modal-body {
+    padding: 2rem;
+  }
+
+  .modal-header-desktop {
+    display: block;
+  }
+
+  .modal-title-desktop {
+    font-size: 2.25rem;
+  }
+
+  .modal-subtitle-desktop {
+    font-size: 1.125rem;
+  }
+
+  .modal-subtitle-mobile {
+    display: none;
+  }
+
+  .modal-image {
+    height: 16rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-description {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-hint {
+    font-size: 0.875rem;
+  }
+
+  .mobile-hint {
+    display: none;
+  }
+
+  .desktop-hint {
+    display: inline;
+  }
+
+  .modal-safe-area {
+    display: none;
+  }
+}
