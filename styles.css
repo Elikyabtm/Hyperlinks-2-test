@@ -79,7 +79,7 @@ body {
 .background-date-left,
 .background-date-right {
   position: absolute;
-  font-size: 14rem;
+  font-size: 12.5rem;
   font-weight: 900;
   color: rgba(255, 255, 255, 0.364);
   line-height: 1;
@@ -154,15 +154,15 @@ body {
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #111827;
   margin-bottom: 0.25rem;
 }
 
 .card-subtitle {
-  font-size: 0.75rem;
-  color: #0551C1;
+  font-size: 0.95rem;
+  color: #9c9c9c;
 }
 
 .card-description {
